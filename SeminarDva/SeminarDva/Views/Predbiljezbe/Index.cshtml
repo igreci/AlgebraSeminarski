@@ -1,0 +1,83 @@
+﻿@model IEnumerable<SeminarDva.Models.Predbiljezba>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista predbilježbi</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    @Html.ActionLink("Seminar", "SortBySeminarName", null, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Prezime", "SortByPrezime", null, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Datum upisa", "SortByDatumPredbiljezbe", null, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Obrađen", "SortByStatus", null, new { @class = "pull-right col-md-2" })
+</p>
+<table class="table">
+    <tr class="background-blue">
+        <th>
+            @Html.DisplayNameFor(model => model.Seminar.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumPredbiljezbe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seminar.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumPredbiljezbe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Uredi", "Edit", new { id = item.IdSeminar }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.IdSeminar }) |
+                @Html.ActionLink("Briši", "Delete", new { id = item.IdSeminar })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Prva strana", "Index", "Seminari", null, htmlAttributes: new { @class = "col-md-3" })
+<a href="javascript:history.back()" class="col-md-3">Natrag</a>

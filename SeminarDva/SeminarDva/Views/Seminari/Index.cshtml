@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SeminarDva.Models.Seminar>
+
+@{
+    ViewBag.Title = "Seminari";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <div class="row" style="margin-left: 10px;">
+        @if (this.User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Dodaj novi", "Create")
+            @Html.ActionLink("Prikaži nepopunjene", "Index", null, new { @class = "pull-right col-md-2" })
+            @Html.ActionLink("Prikaži sve", "GetAllSeminari", null, new { @class = "pull-right col-md-2" })
+        }
+    </div>
+</p>
+<table class="table">
+    <tr class="background-blue">
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DatumPocetka)*@
+            Datum početka
+        </th>
+        @if (this.User.IsInRole("Admin"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Popunjen)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.BrojMjesta)*@
+                Broj Mjesta
+            </th>
+            <th>
+                Predbilježbi
+            </th>
+        }
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (this.User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Obradi", "GetSelected", "Predbiljezbe", new { id = item.IdSeminar }, null)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Prijavi se", "Create", "Predbiljezbe", new { id = item.IdSeminar }, null)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opis)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.DatumPocetka)*@
+                @Convert.ToDateTime(item.DatumPocetka).ToShortDateString()
+            </td>
+            @if (this.User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Popunjen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrojMjesta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Predbiljezba.Count)
+                </td>
+            }
+            <td>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Uredi", "Edit", new { id = item.IdSeminar }) @:|
+                    @Html.ActionLink("Detalji", "Details", new { id = item.IdSeminar }) @:|
+                    @Html.ActionLink("Briši", "Delete", new { id = item.IdSeminar })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
