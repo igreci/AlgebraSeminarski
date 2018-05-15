@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SeminarDva;
 using SeminarDva.Models;
+using SeminarDva.ViewModels;
 
 namespace SeminarDva.Controllers
 {
@@ -143,22 +144,63 @@ namespace SeminarDva.Controllers
             return View("Index", listaSelected);
         }
 
-        public ActionResult SortByPrezime()
+        public ActionResult SortByPrezime(int? id)
         {
-            var listaSelected = db.Predbiljezbe.OrderBy(x => x.Prezime);
-            return View("Index", listaSelected);
+            if (id == null || id == 0)
+            {
+                var listaSelected = db.Predbiljezbe.OrderBy(x => x.Prezime);
+                return View("Index", listaSelected);
+            }
+
+            int idSeminar = (int)id;
+            var listaSelectedForSeminar = db.Predbiljezbe.Include(p => p.Seminar).Where(y => y.IdSeminar == id).OrderBy(x => x.Prezime);
+            var viewModel = new PredbiljezbeForSeminarViewModel
+            {
+                Id = id,
+                Predbiljezbe = listaSelectedForSeminar.ToList()
+            };
+            
+            return View("PredbiljezbeViewModel", viewModel);
+
         }
 
-        public ActionResult SortByDatumPredbiljezbe()
+        public ActionResult SortByDatumPredbiljezbe(int? id)
         {
-            var listaSelected = db.Predbiljezbe.OrderByDescending(x => x.DatumPredbiljezbe);
-            return View("Index", listaSelected);
+            if (id == null || id == 0)
+            {
+                var listaSelected = db.Predbiljezbe.OrderByDescending(x => x.DatumPredbiljezbe);
+                return View("Index", listaSelected);
+            }
+
+            int idSeminar = (int)id;
+            var listaSelectedForSeminar = db.Predbiljezbe.Include(p => p.Seminar).Where(y => y.IdSeminar == id).OrderByDescending(x => x.DatumPredbiljezbe);
+            var viewModel = new PredbiljezbeForSeminarViewModel
+            {
+                Id = idSeminar,
+                Predbiljezbe = listaSelectedForSeminar.ToList()
+            };
+
+            return View("PredbiljezbeViewModel", viewModel);
+
         }
 
-        public ActionResult SortByStatus()
+        public ActionResult SortByStatus(int? id)
         {
-            var listaSelected = db.Predbiljezbe.OrderBy(y => y.Status);
-            return View("Index", listaSelected);
+            if (id == null || id == 0)
+            {
+                var listaSelected = db.Predbiljezbe.OrderBy(y => y.Status);
+                return View("Index", listaSelected); 
+            }
+
+            int idSeminar = (int)id;
+            var listaSelectedForSeminar = db.Predbiljezbe.Include(p => p.Seminar).Where(y => y.IdSeminar == id).OrderBy(x => x.Status);
+            var viewModel = new PredbiljezbeForSeminarViewModel
+            {
+                Id = idSeminar,
+                Predbiljezbe = listaSelectedForSeminar.ToList()
+            };
+
+            return View("PredbiljezbeViewModel", viewModel);
         }
     }
 }

@@ -213,6 +213,7 @@
     <Compile Include="Models\Zaposlenik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PredbiljezbeForSeminarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -283,6 +284,7 @@
     <Content Include="Views\Zaposlenici\Details.cshtml" />
     <Content Include="Views\Zaposlenici\Edit.cshtml" />
     <Content Include="Views\Zaposlenici\Index.cshtml" />
+    <Content Include="Views\Predbiljezbe\PredbiljezbeViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

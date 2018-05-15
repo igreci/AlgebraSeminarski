@@ -1,50 +1,47 @@
-﻿@model IEnumerable<SeminarDva.Models.Predbiljezba>
+﻿@model SeminarDva.ViewModels.PredbiljezbeForSeminarViewModel
 
 @{
-    ViewBag.Title = "Index";
-    var i = @ViewContext.RouteData.Values["id"] ?? null;
+    ViewBag.Title = "Po seminaru";
 }
 
 <h2>Lista predbilježbi</h2>
-
+@Html.HiddenFor(model => model.Id)
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
-    @Html.ActionLink("Seminar", "SortBySeminarName", null, new { @class = "pull-right col-md-2" })
-    @Html.ActionLink("Prezime", "SortByPrezime", new { id = i}, new { @class = "pull-right col-md-2" })
-    @Html.ActionLink("Datum upisa", "SortByDatumPredbiljezbe", new { id = i }, new { @class = "pull-right col-md-2" })
-    @Html.ActionLink("Obrađen", "SortByStatus", new { id = i }, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Prezime", "SortByPrezime", "Predbiljezbe", new { id = Model.Id }, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Datum upisa", "SortByDatumPredbiljezbe", "Predbiljezbe", new { id = Model.Id }, new { @class = "pull-right col-md-2" })
+    @Html.ActionLink("Obrađen", "SortByStatus", "Predbiljezbe", new { id = Model.Id }, new { @class = "pull-right col-md-2" })
 </p>
 <table class="table">
     <tr class="background-blue">
         <th>
             @Html.DisplayNameFor(model => model.Seminar.Naziv)
-            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DatumPredbiljezbe)
+            @Html.DisplayNameFor(model => model.Seminar)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ime)
+            @Html.DisplayName("Ime")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Prezime)
+            @Html.DisplayName("Prezime")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Adresa)
+            @Html.DisplayName("Adresa")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayName("Email")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telefon)
+            @Html.DisplayName("Telefon")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayName("Status")
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Predbiljezbe)
     {
         <tr>
             <td>
@@ -72,9 +69,9 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Uredi", "Edit", "Predbiljezbe", new { id = item.IdPredbiljezba }, null) |
-                @Html.ActionLink("Detalji", "Details", "Predbiljezbe", new { id = item.IdPredbiljezba }, null) |
-                @Html.ActionLink("Briši", "Delete", "Predbiljezbe", new { id = item.IdPredbiljezba }, null)
+                @Html.ActionLink("Uredi", "Edit", "Predbiljezbe", new { id = item.IdPredbiljezba },null) |
+                @Html.ActionLink("Detalji", "Details", "Predbiljezbe", new { id = (int)item.IdPredbiljezba },null) |
+                @Html.ActionLink("Briši", "Delete", "Predbiljezbe", new { id = item.IdPredbiljezba },null)
             </td>
         </tr>
     }
